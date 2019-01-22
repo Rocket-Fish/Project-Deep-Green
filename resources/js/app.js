@@ -21,17 +21,21 @@ Vue.use(VueRouter);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+//const files = require.context('./', true, /\.vue$/i)
+//files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// useless generated code
+// adds example component (which doesn't exist anymore)
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-// setup the vue router
-
-import App from './views/App'
-import Hello from './views/Hello'
+/*
+* The following section setups and creates the vue routes
+* which im using to create the different pages on the site
+* It is currently hardcoded
+*
+*/
 import Home from './views/Home'
+import About from './views/About'
+import Projects from './views/Projects'
 
 const router = new VueRouter({
     mode: 'history',
@@ -42,12 +46,23 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
+            path: '/about',
+            name: 'about',
+            component: About,
+        },
+        {
+            path: '/projects',
+            name: 'projects',
+            component: Projects,
         },
     ],
 });
+
+/*
+*
+*
+*/
+import App from './views/App'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
