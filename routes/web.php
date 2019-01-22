@@ -13,9 +13,12 @@
 
 /*
 * Give Vue js Route control for all default cases
-* the '^(?!api).*$' part separates out any routes which start with /api/
-* this is so we can have an api to work with
+* the '^(?!(api|secret)).*$' part separates out any routes which start with
+* /api/ or /secret/
+* this is so we can have an api and semi-secret access for me to make logins with
 */
-Route::get('/{any}', 'PageController@index')->where('any', '^(?!api).*$');
+Route::get('/{any}', 'PageController@index')->where('any', '^(?!(api|secret)).*$');
+
+// TODO: secret routing goes here
 
 // TODO: badkend api routing goes here
