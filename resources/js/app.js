@@ -8,6 +8,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from 'vue-router'
+//window.VueRouter = require('vue-router');
+
+Vue.use(VueRouter);
 
 /**
  * The following block of code may be used to automatically register your
@@ -17,10 +21,33 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// useless generated code
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+// setup the vue router
+
+import App from './views/App'
+import Hello from './views/Hello'
+import Home from './views/Home'
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/hello',
+            name: 'hello',
+            component: Hello,
+        },
+    ],
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,5 +56,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: { App },
+    router,
 });

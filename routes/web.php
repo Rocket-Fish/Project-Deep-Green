@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Give Vue js Route control for all default cases
+Route::get('/{any}', 'PageController@index')->where('any', '.*');
