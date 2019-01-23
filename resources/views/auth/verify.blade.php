@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+<?php
+/*
+|--------------------------------------------------------------------------
+| TODO: THIS IS CURRENTLY UNUSED
+|--------------------------------------------------------------------------
+*/
+ ?>
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
