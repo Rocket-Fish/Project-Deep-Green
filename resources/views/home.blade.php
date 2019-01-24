@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{{ __(route('projects.index')) }}">Projects</a>
+
                 </div>
             </div>
         </div>

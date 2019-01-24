@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
                 <div class="card-body">
-                  <H3> {{ __('Please stop exploring.') }} </H3>
+                  <H3> {{ __('Not accepting new users, please contact site admin.') }} </H3>
                   <form method="GET" action="{{ route('home') }}">
                       @csrf
                       <div class="form-group row mb-0">
