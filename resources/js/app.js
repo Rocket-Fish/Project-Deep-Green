@@ -8,9 +8,11 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import vueHeadful from 'vue-headful';
 import VueRouter from 'vue-router'
 //window.VueRouter = require('vue-router');
 
+Vue.component('vue-headful', vueHeadful);
 Vue.use(VueRouter);
 
 /**

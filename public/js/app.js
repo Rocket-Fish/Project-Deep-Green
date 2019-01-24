@@ -6041,6 +6041,149 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/headful/dist/headful.js":
+/*!**********************************************!*\
+  !*** ./node_modules/headful/dist/headful.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+exports.default = headful;
+
+
+var conf = {
+    debug: false
+};
+
+var propertySetters = {
+    html: function html(obj) {
+        obj && Object.keys(obj).forEach(function (selector) {
+            return setRootElementAttributes(selector, obj[selector]);
+        });
+    },
+    head: function head(obj) {
+        obj && Object.keys(obj).forEach(function (selector) {
+            return setHeadElementAttributes(selector, obj[selector]);
+        });
+    },
+    title: function title(val) {
+        document.title = isRemoveValue(val) ? '' : val;
+        setMetaContent('itemprop="name"', val);
+        setMetaContent('property="og:title"', val);
+        setMetaContent('name="twitter:title"', val);
+    },
+    description: function description(val) {
+        setMetaContent('name="description"', val);
+        setMetaContent('itemprop="description"', val);
+        setMetaContent('property="og:description"', val);
+        setMetaContent('name="twitter:description"', val);
+    },
+    keywords: function keywords(val) {
+        setMetaContent('name="keywords"', Array.isArray(val) ? val.join(', ') : val);
+    },
+    image: function image(val) {
+        setMetaContent('itemprop="image"', val);
+        setMetaContent('property="og:image"', val);
+        setMetaContent('name="twitter:image"', val);
+    },
+    lang: function lang(val, props) {
+        setRootElementAttributes('html', { lang: val });
+        noProp(props, this.ogLocale) && setOgLocaleIfValid(val);
+    },
+    ogLocale: function ogLocale(val) {
+        setMetaContent('property="og:locale"', val);
+    },
+    url: function url(val) {
+        setHeadElementAttributes('link[rel="canonical"]', { href: val });
+        setMetaContent('property="og:url"', val);
+        setMetaContent('name="twitter:url"', val);
+    }
+};
+
+function headful(props, userConf) {
+    Object.assign(conf, userConf);
+    Object.keys(props).forEach(function (prop) {
+        if (!propertySetters.hasOwnProperty(prop)) {
+            throw new Error('Headful: Property \'' + prop + '\' is unknown.');
+        }
+        propertySetters[prop](props[prop], props);
+    });
+}
+
+headful.props = propertySetters;
+
+/**
+ * Tests whether the given `props` object contains a property with the name of `propNameOrFunction`.
+ */
+function noProp(props, propNameOrFunction) {
+    if (!props) {
+        throw new Error('Headful: You must pass all declared props when you use headful.props.x() calls.');
+    }
+    var propName = typeof propNameOrFunction === 'function' ? propNameOrFunction.name : propNameOrFunction;
+    return !props.hasOwnProperty(propName);
+}
+
+function setMetaContent(attr, val) {
+    setHeadElementAttributes('meta[' + attr + ']', { content: val });
+}
+
+function setRootElementAttributes(selector, attributes) {
+    setElementAttributes(getElement(document, selector), attributes);
+}
+
+function setHeadElementAttributes(selector, attributes) {
+    setElementAttributes(getElement(document.head, selector), attributes);
+}
+
+function setElementAttributes(element, attributes) {
+    if (element) {
+        Object.keys(attributes).forEach(function (attrName) {
+            if (isRemoveValue(attributes[attrName])) {
+                element.removeAttribute(attrName);
+            } else {
+                element.setAttribute(attrName, attributes[attrName]);
+            }
+        });
+    }
+}
+
+function getElement(parent, selector) {
+    var element = parent.querySelector(selector);
+    if (!element && conf.debug) {
+        console.error('Headful: Element \'' + selector + '\' was not found.');
+    }
+    return element;
+}
+
+function setOgLocaleIfValid(locale) {
+    if (isRemoveValue(locale)) {
+        propertySetters.ogLocale(locale);
+    } else if (locale.match(/^[a-z]{2}-[a-z]{2}$/i)) {
+        var _locale$split = locale.split('-'),
+            _locale$split2 = _slicedToArray(_locale$split, 2),
+            language = _locale$split2[0],
+            region = _locale$split2[1];
+
+        var ogLocale = language + '_' + region.toUpperCase();
+        propertySetters.ogLocale(ogLocale);
+    }
+}
+
+function isRemoveValue(val) {
+    return val === undefined || val === null;
+}
+
+/***/ }),
+
 /***/ "./node_modules/is-buffer/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
@@ -36614,6 +36757,53 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-headful/dist/vue-headful.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vue-headful/dist/vue-headful.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _headful = __webpack_require__(/*! headful */ "./node_modules/headful/dist/headful.js");
+
+var _headful2 = _interopRequireDefault(_headful);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: 'vue-headful',
+    props: Object.keys(_headful2.default.props),
+    watch: {
+        '$props': {
+            handler: function handler(props) {
+                return (0, _headful2.default)(getPassedProps(props));
+            },
+            deep: true,
+            immediate: true
+        }
+    },
+    render: function render() {}
+};
+
+
+function getPassedProps(props) {
+    return Object.keys(props).reduce(function (passedProps, propKey) {
+        if (props[propKey] !== undefined) {
+            passedProps[propKey] = props[propKey];
+        }
+        return passedProps;
+    }, {});
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/About.vue?vue&type=template&id=2995bb7e&":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/About.vue?vue&type=template&id=2995bb7e& ***!
@@ -36699,7 +36889,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("This is the homepage")])
+  return _c(
+    "div",
+    [
+      _c("vue-headful", { attrs: { title: "Deep Green Ocean" } }),
+      _vm._v(" "),
+      _c("p", [_vm._v("This is the homepage")])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50627,11 +50825,13 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _views_Home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./views/Home */ "./resources/js/views/Home.vue");
-/* harmony import */ var _views_About__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/About */ "./resources/js/views/About.vue");
-/* harmony import */ var _views_Projects__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Projects */ "./resources/js/views/Projects.vue");
-/* harmony import */ var _views_App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/App */ "./resources/js/views/App.vue");
+/* harmony import */ var vue_headful__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-headful */ "./node_modules/vue-headful/dist/vue-headful.js");
+/* harmony import */ var vue_headful__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_headful__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _views_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Home */ "./resources/js/views/Home.vue");
+/* harmony import */ var _views_About__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/About */ "./resources/js/views/About.vue");
+/* harmony import */ var _views_Projects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/Projects */ "./resources/js/views/Projects.vue");
+/* harmony import */ var _views_App__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/App */ "./resources/js/views/App.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -50640,9 +50840,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
  //window.VueRouter = require('vue-router');
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+Vue.component('vue-headful', vue_headful__WEBPACK_IMPORTED_MODULE_0___default.a);
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -50665,20 +50867,20 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
     path: '/',
     name: 'home',
-    component: _views_Home__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: _views_Home__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/about',
     name: 'about',
-    component: _views_About__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _views_About__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/projects',
     name: 'projects',
-    component: _views_Projects__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _views_Projects__WEBPACK_IMPORTED_MODULE_4__["default"]
   }]
 });
 /*
@@ -50696,7 +50898,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 var app = new Vue({
   el: '#app',
   components: {
-    App: _views_App__WEBPACK_IMPORTED_MODULE_4__["default"]
+    App: _views_App__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   router: router
 });
