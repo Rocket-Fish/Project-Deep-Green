@@ -49,6 +49,7 @@ Route::get('/{any}', 'PageController@index')->where('any', '^(?!('.$outputText.'
 *
 */
 $secretRoute = '/' . Config::get('constants.routes.secret');
+$apiRoute = '/' . Config::get('constants.routes.api');
 
 
 // add prefix to the magic laravel facad
@@ -62,3 +63,6 @@ Route::group(['prefix' => $secretRoute], function () {
 });
 
 // TODO: badkend api routing goes here
+Route::group(['prefix' => $apiRoute], function () {
+  Route::get('/projects', 'ProjectsApiController@index');
+});
