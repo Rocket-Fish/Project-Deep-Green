@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/*
+* This controller is for backend login stuff
+*/
+
 class HomeController extends Controller
 {
     /**

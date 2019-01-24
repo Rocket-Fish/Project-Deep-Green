@@ -57,6 +57,8 @@ Route::group(['prefix' => $secretRoute], function () {
   Auth::routes();
   // secret home
   Route::get('/', 'HomeController@index')->name('home');
+  // secret Projects
+  Route::resource('/projects', 'ProjectsController');
 });
 
 // TODO: badkend api routing goes here
