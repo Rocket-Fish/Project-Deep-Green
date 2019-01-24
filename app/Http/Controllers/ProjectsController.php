@@ -45,11 +45,11 @@ class ProjectsController extends Controller
         Project::create([
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'title' => request('title'),
-            'img_url' => request('img_url'),
-            'description' => request('description'),
-            'link_to' => request('link_to'),
-            'link_desc' => request('link_desc')
+            'title' => $request->input('title'),
+            'img_url' => $request->input('img_url'),
+            'description' => $request->input('description'),
+            'link_to' => $request->input('link_to'),
+            'link_desc' => $request->input('link_desc')
         ]);
         return $this->index();
     }
@@ -73,7 +73,7 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -85,7 +85,17 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        // update params
+        $project->update_at = Carbon::now();
+        $project->title = $request->input('title');
+        $project->img_url = $request->input('img_url');
+        $project->description = $request->input('description');
+        $project->link_to = $request->input('link_to');
+        $project->link_desc = $request->input('link_desc');
+        // save the new params
+        $project->save();
+        // returns back to previous page
+        return $this->index();
     }
 
     /**
@@ -96,6 +106,7 @@ class ProjectsController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return $this->index();
     }
 }

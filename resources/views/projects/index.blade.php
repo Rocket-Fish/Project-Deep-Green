@@ -10,7 +10,9 @@
                 @foreach($projects as $p)
                   <div class="form-group row">
                       <a class="col-md-1"></a>
-                      <li class="col-md-10">{{ $p->title }}</li>
+                        <a class="col-md-10" href="{{ __(route('projects.index') . '/' . $p->id)}}">
+                          {{ $p->title }}
+                        </a>
                       <a class="col-md-1"></a>
                   </div>
                 @endforeach
