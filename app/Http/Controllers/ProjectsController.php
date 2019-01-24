@@ -62,7 +62,7 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('projects.show', compact('project'));
     }
 
     /**
@@ -86,7 +86,7 @@ class ProjectsController extends Controller
     public function update(Request $request, Project $project)
     {
         // update params
-        $project->update_at = Carbon::now();
+        $project->updated_at = Carbon::now();
         $project->title = $request->input('title');
         $project->img_url = $request->input('img_url');
         $project->description = $request->input('description');

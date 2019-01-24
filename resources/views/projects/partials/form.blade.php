@@ -11,10 +11,10 @@
   <textarea  class="form-control" name='description' placeholder='Project Description'> @if(isset($project)){{__($project->description)}}@endif </textarea>
 </div>
 <div class="form-group">
-  <label>Link display Name</label>
-  <input type='text'  class="form-control" name='link_to' placeholder='github, devpost, some other site'  @if(isset($project)) value="{{ $project->link_to }}" @endif>
+  <label>Link Description</label>
+  <input type='text'  class="form-control" name='link_desc' placeholder='github, devpost, some other site'   @if(isset($project)) value="{{ $project->link_desc }}" @endif>
 </div>
 <div class="form-group">
   <label>Link URL</label>
-  <input type='text'  class="form-control" name='link_desc' placeholder='github.com/something'   @if(isset($project)) value="{{ $project->link_desc }}" @endif>
+  <input type='text'  class="form-control" name='link_to' placeholder='github.com/something'  @if(isset($project)) value="{{ $project->link_to }}" @endif>
 </div>

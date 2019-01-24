@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Create Project</div>
+                <div class="card-header">Edit Project</div>
 
                 <form method="POST" action="{{ __(route('projects.index') . '/' . $project->id) }}">
                   @csrf
@@ -31,6 +31,9 @@
                       </div>
                   </div>
                 </form>
+                <div class = "col-md-4 offset-md-4">
+                  <a class="btn btn-secondary" href="{{ __(route('projects.index') . '/' . $project->id) }}}">Cancel</a>
+                </div>
             </div>
         </div>
     </div>
