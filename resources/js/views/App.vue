@@ -4,9 +4,7 @@
         <navbar-component></navbar-component>
 
         <div class = "non-nav-items">
-          <div class="container">
-              <router-view></router-view>
-          </div>
+          <router-view></router-view>
         </div>
     </div>
 </template>
