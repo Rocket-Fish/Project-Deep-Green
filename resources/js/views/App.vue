@@ -1,15 +1,12 @@
 <template>
     <div>
-        <h1>Testing Vue Routing</h1>
 
-        <p>
-            <router-link :to="{ name: 'home' }">Home</router-link>
-            <router-link :to="{ name: 'about' }">About</router-link>
-            <router-link :to="{ name: 'projects' }">Projects</router-link>
-        </p>
+        <navbar-component></navbar-component>
 
-        <div class="container">
-            <router-view></router-view>
+        <div class = "non-nav-items">
+          <div class="container">
+              <router-view></router-view>
+          </div>
         </div>
     </div>
 </template>

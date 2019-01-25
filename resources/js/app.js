@@ -10,10 +10,12 @@ require('./bootstrap');
 window.Vue = require('vue');
 import vueHeadful from 'vue-headful';
 import VueRouter from 'vue-router'
+import BootstrapVue from 'bootstrap-vue'
 //window.VueRouter = require('vue-router');
 
 Vue.component('vue-headful', vueHeadful);
 Vue.use(VueRouter);
+Vue.use(BootstrapVue);
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,7 +24,7 @@ Vue.use(VueRouter);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
+// don't use these becuase they are only good for very very basic global components
 //const files = require.context('./', true, /\.vue$/i)
 //files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
@@ -65,6 +67,10 @@ const router = new VueRouter({
 *
 */
 import App from './views/App'
+// import navbar component
+import NavbarComponent from './components/NavBarComponent'
+// make this globally available
+Vue.component('navbar-component', NavbarComponent)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -74,6 +80,6 @@ import App from './views/App'
 
 const app = new Vue({
     el: '#app',
-    components: { App },
+    components: { App , NavbarComponent},
     router,
 });
