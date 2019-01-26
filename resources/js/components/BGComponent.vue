@@ -4,7 +4,9 @@
     <div id="Three-js-canvas" class= "Three-js-canvas">
       <div style="position: absolute; color:white; width:100%; height:100%">
         <div class="container vertical-align" style="height:100%">
-          <router-view></router-view>
+          <transition name='rotate'>
+              <router-view></router-view>
+          </transition>
         </div>
       </div>
     </div>
@@ -385,4 +387,59 @@ $brown: #C38200;
   overflow: hidden;
 	background: linear-gradient($blue, $brown);
 }
+
+$baseAnimationSpeed : 1.0s;
+// no multiplication in scss :/
+$modifiedAnimationSpeed : $baseAnimationSpeed + $baseAnimationSpeed + $baseAnimationSpeed;
+
+// animations
+.rotate-enter {
+  opacity: 0;
+}
+
+.rotate-enter-active  {
+  transition: opacity $modifiedAnimationSpeed;
+  animation: spinleft $modifiedAnimationSpeed;
+}
+
+.rotate-enter-to {
+  opacity: 1;
+
+}
+
+.rotate-leave {
+  opacity: 1;
+}
+
+.rotate-leave-active {
+  transition: opacity $baseAnimationSpeed;
+  animation: spinallleft $baseAnimationSpeed;
+}
+
+.rotate-leave-to {
+  opacity: 0;
+}
+
+@keyframes spinleft {
+  0% {
+    transform:rotate(90deg);
+    transform-origin: bottom center;
+  }
+  100% {
+    transform:rotate(0deg);
+    transform-origin: bottom center;
+ }
+}
+
+@keyframes spinallleft {
+  0% {
+    transform:rotate(0deg);
+    transform-origin: bottom center;
+  }
+  100% {
+    transform:rotate(-30deg);
+    transform-origin: bottom center;
+ }
+}
+
 </style>

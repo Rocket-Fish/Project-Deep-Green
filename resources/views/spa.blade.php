@@ -9,6 +9,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/app_on_3d.css') }}" rel="stylesheet">
 
 </head>
 <body>

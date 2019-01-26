@@ -1,0 +1,24 @@
+.styled-box {
+  margin-top: 20%;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding-bottom: 10px;
+}
+
+@media screen and (min-width: 1300px) {
+  .styled-box h1 {
+    font-size: 3.8em;
+  }
+
+  .styled-box h4 {
+    font-size: 1.9em;
+  }
+
+  .styled-box h5 {
+    font-size: 1.52em;
+  }
+}
+
+.styled-box .line {
+  display: inline-block;
+}
+

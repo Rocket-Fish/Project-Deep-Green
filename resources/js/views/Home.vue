@@ -1,58 +1,31 @@
 <template>
-  <div class="home-box col-lg-8">
-    <div class="row">
-      <div class="col-lg">
-        <H1>
-          <span class="line">Welcome to</span>
-          <span class="line">Deep Green Ocean</span>
-        </H1>
+  <div style="height:100%; width100%;">
+    <div class="styled-box col-lg-8">
+      <div class="row">
+        <div class="col-lg">
+          <H1>
+            <span class="line">Welcome to</span>
+            <span class="line">Deep Green Ocean</span>
+          </H1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg">
-        <H4>
-          <span class="line">The current home of </span>
-          <span class="line">Jimmy Zhang</span>
-        </H4>
+      <div class="row">
+        <div class="col-lg">
+          <H4>
+            <span class="line">A Portfolio for</span>
+            <span class="line">Jimmy Zhang,</span>
+            <span class="line">Aspiring Web Developer</span>
+          </H4>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg">
-        <H5>Who are you? Project Showcases</H5>
+      <div class="row">
+        <div class="col-lg">
+          <b-button :size="'lg'" :variant="'success'" :to="{name:'about'}"> Whos Jimmy? </b-button>
+          <b-button :size="'lg'" :variant="'primary'" :to="{name:'projects'}"> Show Me > </b-button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.home-box{
-    margin-top:20%;
-    background-color: rgba(0, 0, 0, 0.3);
-
-    // set a variable for the font size
-    $h1-size: 2em;
-    $h2-size: 1.5em;
-    $h3-size: 1.3em;
-    $h4-size: 1em;
-    $h5-size: 0.8em;
-    $h6-size: 0.7em;
-
-    @function scaleUp($var) {
-      @return $var*1.9;
-    }
-
-    @media screen and (min-width: 1300px) {
-      h1 {
-        font-size: scaleUp($h1-size);
-      }
-      h4 {
-        font-size: scaleUp($h4-size);
-      }
-      h5 {
-        font-size: scaleUp($h5-size);
-      }
-    }
-    .line {
-      display: inline-block;
-    }
-  }
 </style>
