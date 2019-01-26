@@ -4,7 +4,7 @@
         <navbar-component></navbar-component>
 
         <div class = "non-nav-items">
-          <router-view></router-view>
+          <bg-component> </bg-component>
         </div>
     </div>
 </template>

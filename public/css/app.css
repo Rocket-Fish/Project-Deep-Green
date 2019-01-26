@@ -10802,7 +10802,15 @@ a.text-dark:focus {
   }
 }
 
-.non-nav-items {
-  padding-top: 70px;
+@media screen and (min-width: 576px) {
+  .non-nav-items {
+    padding-top: 40px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .non-nav-items {
+    padding-top: 70px;
+  }
 }
 

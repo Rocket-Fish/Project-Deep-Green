@@ -71,6 +71,9 @@ import App from './views/App'
 import NavbarComponent from './components/NavBarComponent'
 // make this globally available
 Vue.component('navbar-component', NavbarComponent)
+import BGComponent from './components/BGComponent';
+Vue.component('bg-component', BGComponent)
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -80,6 +83,9 @@ Vue.component('navbar-component', NavbarComponent)
 
 const app = new Vue({
     el: '#app',
-    components: { App , NavbarComponent},
+    components: {
+       App,
+       NavbarComponent,
+       BGComponent},
     router,
 });

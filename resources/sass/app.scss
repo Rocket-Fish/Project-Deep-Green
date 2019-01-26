@@ -9,6 +9,17 @@
 @import '~bootstrap/scss/bootstrap';
 @import "~bootstrap-vue/dist/bootstrap-vue.css";
 
+$break-small: 576px;
+$break-large: 1200px;
+
+// This adjustment here is done so that when I resize the window
+// under 500 px resizing of the navbar won't leave a blank space
+// in between the 3d viewport and the navbar
 .non-nav-items {
-  padding-top: 70px;
+  @media screen and (min-width: $break-small) {
+    padding-top: 40px;
+  }
+  @media screen and (min-width: $break-large) {
+    padding-top: 70px;
+  }
 }
