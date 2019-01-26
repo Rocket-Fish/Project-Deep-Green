@@ -19,11 +19,8 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
-$bgDefault      : #00c2c6;
-$bgHighlight    : #fafbfb;
-$colDefault     : #fbfbfb;
-$colHighlight   : #007b7c;
+$primary-color: #007575;
 
 $theme-colors: (
-  primary: $colHighlight
+  primary: $primary-color
 )
