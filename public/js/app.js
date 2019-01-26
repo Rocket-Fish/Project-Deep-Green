@@ -1797,7 +1797,7 @@ var Sea = function Sea() {
     color: colors.water,
     transparent: true,
     opacity: .6,
-    shading: three__WEBPACK_IMPORTED_MODULE_0__["FlatShading"]
+    flatShading: true
   }); // To create an object in Three.js, we have to create a mesh
   // which is a combination of a geometry and some material
 

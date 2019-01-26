@@ -31,7 +31,7 @@ class Sea {
       color:colors.water,
       transparent:true,
       opacity:.6,
-      shading:THREE.FlatShading,
+      flatShading:true,
     });
 
     // To create an object in Three.js, we have to create a mesh
