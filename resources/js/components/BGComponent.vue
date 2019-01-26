@@ -29,14 +29,55 @@ const colors = {
 
 class Sea {
   constructor(radius) {
-    this.geom = new THREE.CylinderGeometry(radius,radius,800,40,10);
+    let radialSegments = 40;
+    const radialIncrement = 2;
+    const minRadius = 400;
+    const maxRadius = 1000;
+    const incrementThreshold = 10
+    // im going to assume that larger screen = better pc hardware
+    // adding more verts to larger radius to make the water effect
+    // behave more like water
+    // also rardius is half of the viewport size
+
+    // ensure that our value is between min and max radius values
+    const playgroundValue = Math.max(minRadius, (Math.min(maxRadius, radius)));
+    // determine number of times we need to add vertices
+    // math.floor ensures that we get an int
+    let numAdditions = Math.floor((radius-minRadius)/incrementThreshold);
+    // apply the increments
+    for(let i = 0; i < numAdditions; i ++) {
+      radialSegments += radialIncrement;
+    }
+
+    console.log("radius " + radius);
+    console.log("num additions " + numAdditions);
+    console.log("radial segments " + radialSegments);
+    this.geom = new THREE.CylinderGeometry(radius,radius,800,radialSegments,10);
     // rotate the geometry on the x axis
     this.geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
+
+    // create a wave array, containing objects with information about each vert
+    this.waves = [];
+
+    for (let vert of this.geom.vertices) {
+      this.waves.push({
+        y:vert.y,
+        x:vert.x,
+        z:vert.z,
+        angle:Math.random()*Math.PI*2,
+        // also going to adjust the amplitude of the wave depending on screen size
+        amplitude: Math.random()*Math.max(Math.min(numAdditions/2, 40), 15),
+        // a random speed between 0.016 and 0.048 radians / frame
+        speed:0.016 + Math.random()*0.032
+      });
+    }
+
+
     // make a material
     let mat = new THREE.MeshPhongMaterial({
       color:colors.water,
       transparent:true,
-      opacity:.6,
+      opacity:.8,
       flatShading:true,
     });
 
@@ -46,6 +87,26 @@ class Sea {
 
     // Allow the sea to receive shadows
     this.mesh.receiveShadow = true;
+
+  }
+
+  updateWaves() {
+    var verts = this.mesh.geometry.vertices;
+    var waves = this.waves;
+    for(let i = 0; i < waves.length; i ++) {
+      let vert = verts[i];
+      let wave = waves[i];
+
+      // update the position of the vertex
+  		vert.x = wave.x + Math.cos(wave.angle)*wave.amplitude;
+  		vert.y = wave.y + Math.sin(wave.angle)*wave.amplitude;
+
+  		// increment the angle for the next frame
+  		wave.angle += wave.speed;
+    }
+    // this line is important, otherwise three js caches the mesh
+    // and we won't get to dynamically change it.
+    this.mesh.geometry.verticesNeedUpdate=true;
   }
 }
 
@@ -176,7 +237,7 @@ export default {
 
         // make sea radius relative to the window size for better scaling
         // on various devices
-        this.seaRadius = (window.innerWidth*2/3);
+        this.seaRadius = (window.innerWidth/2);
         this.cloudRadius = this.seaRadius+this.cloudDistance;
         // create objects like sky and sea
         this.createSea(this.seaRadius);
@@ -283,6 +344,7 @@ export default {
     animate() {
         requestAnimationFrame(this.animate);
         // the z axix is the axis facing us.
+        this.sea.updateWaves();
         this.sea.mesh.rotation.z += 0.003;
         this.sky.mesh.rotation.z += 0.003;
         this.renderer.render(this.scene, this.camera);

@@ -1766,6 +1766,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 //
 //
 //
@@ -1791,25 +1795,110 @@ var colors = {
   fog: 0xf0f0f0
 };
 
-var Sea = function Sea(radius) {
-  _classCallCheck(this, Sea);
+var Sea =
+/*#__PURE__*/
+function () {
+  function Sea(radius) {
+    _classCallCheck(this, Sea);
 
-  this.geom = new three__WEBPACK_IMPORTED_MODULE_0__["CylinderGeometry"](radius, radius, 800, 40, 10); // rotate the geometry on the x axis
+    var radialSegments = 40;
+    var radialIncrement = 2;
+    var minRadius = 400;
+    var maxRadius = 1000;
+    var incrementThreshold = 10; // im going to assume that larger screen = better pc hardware
+    // adding more verts to larger radius to make the water effect
+    // behave more like water
+    // also rardius is half of the viewport size
+    // ensure that our value is between min and max radius values
 
-  this.geom.applyMatrix(new three__WEBPACK_IMPORTED_MODULE_0__["Matrix4"]().makeRotationX(-Math.PI / 2)); // make a material
+    var playgroundValue = Math.max(minRadius, Math.min(maxRadius, radius)); // determine number of times we need to add vertices
+    // math.floor ensures that we get an int
 
-  var mat = new three__WEBPACK_IMPORTED_MODULE_0__["MeshPhongMaterial"]({
-    color: colors.water,
-    transparent: true,
-    opacity: .6,
-    flatShading: true
-  }); // To create an object in Three.js, we have to create a mesh
-  // which is a combination of a geometry and some material
+    var numAdditions = Math.floor((radius - minRadius) / incrementThreshold); // apply the increments
 
-  this.mesh = new three__WEBPACK_IMPORTED_MODULE_0__["Mesh"](this.geom, mat); // Allow the sea to receive shadows
+    for (var i = 0; i < numAdditions; i++) {
+      radialSegments += radialIncrement;
+    }
 
-  this.mesh.receiveShadow = true;
-};
+    console.log("radius " + radius);
+    console.log("num additions " + numAdditions);
+    console.log("radial segments " + radialSegments);
+    this.geom = new three__WEBPACK_IMPORTED_MODULE_0__["CylinderGeometry"](radius, radius, 800, radialSegments, 10); // rotate the geometry on the x axis
+
+    this.geom.applyMatrix(new three__WEBPACK_IMPORTED_MODULE_0__["Matrix4"]().makeRotationX(-Math.PI / 2)); // create a wave array, containing objects with information about each vert
+
+    this.waves = [];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = this.geom.vertices[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var vert = _step.value;
+        this.waves.push({
+          y: vert.y,
+          x: vert.x,
+          z: vert.z,
+          angle: Math.random() * Math.PI * 2,
+          // also going to adjust the amplitude of the wave depending on screen size
+          amplitude: Math.random() * Math.max(Math.min(numAdditions / 2, 40), 15),
+          // a random speed between 0.016 and 0.048 radians / frame
+          speed: 0.016 + Math.random() * 0.032
+        });
+      } // make a material
+
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return != null) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    var mat = new three__WEBPACK_IMPORTED_MODULE_0__["MeshPhongMaterial"]({
+      color: colors.water,
+      transparent: true,
+      opacity: .8,
+      flatShading: true
+    }); // To create an object in Three.js, we have to create a mesh
+    // which is a combination of a geometry and some material
+
+    this.mesh = new three__WEBPACK_IMPORTED_MODULE_0__["Mesh"](this.geom, mat); // Allow the sea to receive shadows
+
+    this.mesh.receiveShadow = true;
+  }
+
+  _createClass(Sea, [{
+    key: "updateWaves",
+    value: function updateWaves() {
+      var verts = this.mesh.geometry.vertices;
+      var waves = this.waves;
+
+      for (var i = 0; i < waves.length; i++) {
+        var vert = verts[i];
+        var wave = waves[i]; // update the position of the vertex
+
+        vert.x = wave.x + Math.cos(wave.angle) * wave.amplitude;
+        vert.y = wave.y + Math.sin(wave.angle) * wave.amplitude; // increment the angle for the next frame
+
+        wave.angle += wave.speed;
+      } // this line is important, otherwise three js caches the mesh
+      // and we won't get to dynamically change it.
+
+
+      this.mesh.geometry.verticesNeedUpdate = true;
+    }
+  }]);
+
+  return Sea;
+}();
 
 var Cloud = function Cloud() {
   _classCallCheck(this, Cloud);
@@ -1915,7 +2004,7 @@ var Sky = function Sky(radius) {
       this.createLights(); // make sea radius relative to the window size for better scaling
       // on various devices
 
-      this.seaRadius = window.innerWidth * 2 / 3;
+      this.seaRadius = window.innerWidth / 2;
       this.cloudRadius = this.seaRadius + this.cloudDistance; // create objects like sky and sea
 
       this.createSea(this.seaRadius);
@@ -1999,6 +2088,7 @@ var Sky = function Sky(radius) {
     animate: function animate() {
       requestAnimationFrame(this.animate); // the z axix is the axis facing us.
 
+      this.sea.updateWaves();
       this.sea.mesh.rotation.z += 0.003;
       this.sky.mesh.rotation.z += 0.003;
       this.renderer.render(this.scene, this.camera);
