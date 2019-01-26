@@ -22440,7 +22440,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".home-box[data-v-63cd6604] {\n  margin-top: 20%;\n  background-color: rgba(0, 0, 0, 0.3);\n}", ""]);
+exports.push([module.i, ".home-box[data-v-63cd6604] {\n  margin-top: 20%;\n  background-color: rgba(0, 0, 0, 0.3);\n}\n@media screen and (min-width: 1300px) {\n.home-box h1[data-v-63cd6604] {\n    font-size: 3.8em;\n}\n.home-box h4[data-v-63cd6604] {\n    font-size: 1.9em;\n}\n.home-box h5[data-v-63cd6604] {\n    font-size: 1.52em;\n}\n}", ""]);
 
 // exports
 
@@ -103457,7 +103457,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-lg" },
-        [_c("H1", [_vm._v("Project Deep Green Ocean")])],
+        [_c("H1", [_vm._v("Deep Green Ocean")])],
         1
       )
     ]),
@@ -103466,7 +103466,16 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-lg" },
-        [_c("H4", [_vm._v("By Jimmy Zhang")])],
+        [_c("H4", [_vm._v("A showcase of projects")])],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-lg" },
+        [_c("H5", [_vm._v("By Jimmy Zhang")])],
         1
       )
     ])
