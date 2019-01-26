@@ -4,24 +4,21 @@
       <div class="row">
         <div class="col-lg">
           <H1>
-            <span class="line">Welcome to</span>
-            <span class="line">Deep Green Ocean</span>
+            <span class="line">404</span>
+            <span class="line">Page Not Found</span>
           </H1>
         </div>
       </div>
       <div class="row">
         <div class="col-lg">
           <H4>
-            <span class="line">A Portfolio for</span>
-            <span class="line">Jimmy Zhang,</span>
-            <span class="line">Web Developer</span>
+            <span class="line">A whale may have consumed this page</span>
           </H4>
         </div>
       </div>
       <div class="row">
         <div class="col-lg">
-          <b-button :size="'lg'" :variant="'success'" :to="{name:'about'}"> Whos Jimmy? </b-button>
-          <b-button :size="'lg'" :variant="'primary'" :to="{name:'projects'}"> Work Showcase > </b-button>
+          <b-button :size="'lg'" :variant="'success'" :to="{name:'home'}"> Go Home </b-button>
         </div>
       </div>
     </div>

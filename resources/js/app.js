@@ -8,14 +8,16 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import vueHeadful from 'vue-headful';
-import VueRouter from 'vue-router'
-import BootstrapVue from 'bootstrap-vue'
+const VueResource = require('vue-resource');
+const vueHeadful = require('vue-headful').default;
+const VueRouter = require('vue-router').default;
+const BootstrapVue = require( 'bootstrap-vue');
 //window.VueRouter = require('vue-router');
 
 Vue.component('vue-headful', vueHeadful);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+Vue.use(VueResource);
 
 /**
  * The following block of code may be used to automatically register your
@@ -40,6 +42,7 @@ Vue.use(BootstrapVue);
 import Home from './views/Home'
 import About from './views/About'
 import Projects from './views/Projects'
+import NotFound from './views/NotFound'
 
 const router = new VueRouter({
     mode: 'history',
@@ -58,6 +61,15 @@ const router = new VueRouter({
             path: '/projects',
             name: 'projects',
             component: Projects,
+        },
+        {
+            path:'/404',
+            name: '404',
+            component: NotFound,
+        },
+        {
+            path:'*',
+            redirect: '/404',
         },
     ],
 });

@@ -51,9 +51,6 @@ class Sea {
       radialSegments += radialIncrement;
     }
 
-    console.log("radius " + radius);
-    console.log("num additions " + numAdditions);
-    console.log("radial segments " + radialSegments);
     this.geom = new THREE.CylinderGeometry(radius,radius,800,radialSegments,10);
     // rotate the geometry on the x axis
     this.geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
