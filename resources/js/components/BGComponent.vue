@@ -388,7 +388,7 @@ $brown: #C38200;
 	background: linear-gradient($blue, $brown);
 }
 
-$baseAnimationSpeed : 1.0s;
+$baseAnimationSpeed : 0.4s;
 // no multiplication in scss :/
 $modifiedAnimationSpeed : $baseAnimationSpeed + $baseAnimationSpeed + $baseAnimationSpeed;
 
