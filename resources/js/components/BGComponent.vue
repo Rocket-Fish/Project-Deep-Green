@@ -31,9 +31,9 @@ class Sea {
   constructor(radius) {
     let radialSegments = 40;
     const radialIncrement = 2;
-    const minRadius = 400;
+    const minRadius = 200;
     const maxRadius = 1000;
-    const incrementThreshold = 10
+    const incrementThreshold = 18
     // im going to assume that larger screen = better pc hardware
     // adding more verts to larger radius to make the water effect
     // behave more like water
@@ -325,6 +325,10 @@ export default {
     	// to activate the lights, just add them to the scene
     	this.scene.add(this.hemisphereLight);
     	this.scene.add(this.shadowLight);
+
+      // an ambient light modifies the global color of a scene and makes the shadows softer
+      let ambientLight = new THREE.AmbientLight(this.colors.water, .05);
+      this.scene.add(ambientLight);
     },
     createSea(radius) {
       // make a new sea object
@@ -345,8 +349,8 @@ export default {
         requestAnimationFrame(this.animate);
         // the z axix is the axis facing us.
         this.sea.updateWaves();
-        this.sea.mesh.rotation.z += 0.003;
-        this.sky.mesh.rotation.z += 0.003;
+        this.sea.mesh.rotation.z += 0.0015;
+        this.sky.mesh.rotation.z += 0.0015;
         this.renderer.render(this.scene, this.camera);
     },
     handleResize() {
