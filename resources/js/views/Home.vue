@@ -1,18 +1,24 @@
 <template>
-  <div class="home-box col-lg-6">
+  <div class="home-box col-lg-8">
     <div class="row">
       <div class="col-lg">
-        <H1>Deep Green Ocean</H1>
+        <H1>
+          <span class="line">Welcome to</span>
+          <span class="line">Deep Green Ocean</span>
+        </H1>
       </div>
     </div>
     <div class="row">
       <div class="col-lg">
-        <H4>A showcase of projects</H4>
+        <H4>
+          <span class="line">The current home of </span>
+          <span class="line">Jimmy Zhang</span>
+        </H4>
       </div>
     </div>
     <div class="row">
       <div class="col-lg">
-        <H5>By Jimmy Zhang</H5>
+        <H5>Who are you? Project Showcases</H5>
       </div>
     </div>
   </div>
@@ -44,6 +50,9 @@
       h5 {
         font-size: scaleUp($h5-size);
       }
+    }
+    .line {
+      display: inline-block;
     }
   }
 </style>
