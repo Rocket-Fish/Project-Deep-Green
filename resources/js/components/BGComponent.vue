@@ -14,16 +14,22 @@
 <script>
 import * as THREE from 'three';
 
+// cross class variables are bad for oop
+// testing purposes only
+//const seaRadius = 600;
+//const cloudDistance = 200;
+
 const colors = {
+  white:0xffffff,
   water:0x00C6C6,
   sand:0xC38200,
-  fog:0xC38200
+  fog:0xf0f0f0
 };
 
 
 class Sea {
-  constructor() {
-    this.geom = new THREE.CylinderGeometry(600,600,800,40,10);
+  constructor(radius) {
+    this.geom = new THREE.CylinderGeometry(radius,radius,800,40,10);
     // rotate the geometry on the x axis
     this.geom.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI/2));
     // make a material
@@ -43,9 +49,100 @@ class Sea {
   }
 }
 
+class Cloud {
+  constructor() {
+    // Create an empty container that will hold the different parts of the cloud
+    this.mesh = new THREE.Object3D();
+
+    // create a cube geometry;
+    // this shape will be duplicated to create the cloud
+    let geom = new THREE.BoxGeometry(20,20,20);
+
+    // create a material; a simple white material will do the trick
+    let mat = new THREE.MeshPhongMaterial({
+      color:colors.white,
+    });
+
+    // duplicate the geometry a random number of times
+    let nBlocs = 3+Math.floor(Math.random()*3);
+    for (let i=0; i<nBlocs; i++ ){
+
+      // create the mesh by cloning the geometry
+      let m = new THREE.Mesh(geom, mat);
+
+      // set the position and the rotation of each cube randomly
+      m.position.x = i*15;
+      m.position.y = Math.random()*10;
+      m.position.z = Math.random()*10;
+      m.rotation.z = Math.random()*Math.PI*2;
+      m.rotation.y = Math.random()*Math.PI*2;
+
+      // set the size of the cube randomly
+      let s = .1 + Math.random()*.9;
+      m.scale.set(s,s,s);
+
+      // allow each cube to cast and to receive shadows
+      m.castShadow = true;
+      m.receiveShadow = true;
+
+      // add the cube to the container we first created
+      this.mesh.add(m);
+    }
+  }
+}
+
+class Sky{
+  constructor(radius) {
+    // Create an empty container
+    this.mesh = new THREE.Object3D();
+
+    // choose a number of clouds to be scattered in the sky
+    this.nClouds = 20;
+
+    // To distribute the clouds consistently,
+    // we need to place them according to a uniform angle
+    let stepAngle = Math.PI*2 / this.nClouds;
+
+    // create the clouds
+    for(let i=0; i<this.nClouds; i++){
+      let c = new Cloud();
+
+      // set the rotation and the position of each cloud;
+      // for that we use a bit of trigonometry
+      let a = stepAngle*i; // this is the final angle of the cloud
+      let h = radius + Math.random()*200; // this is the distance between the center of the axis and the cloud itself
+
+      // Trigonometry!!! I hope you remember what you've learned in Math :)
+      // in case you don't:
+      // we are simply converting polar coordinates (angle, distance) into Cartesian coordinates (x, y)
+      c.mesh.position.y = Math.sin(a)*h;
+      c.mesh.position.x = Math.cos(a)*h;
+
+      // rotate the cloud according to its position
+      c.mesh.rotation.z = a + Math.PI/2;
+
+      // for a better result, we position the clouds
+      // at random depths inside of the scene
+      c.mesh.position.z = -400-Math.random()*400;
+
+      // we also set a random scale for each cloud
+      let s = 1+Math.random()*2;
+      c.mesh.scale.set(s,s,s);
+
+      // add cloud into scene
+      this.mesh.add(c.mesh);
+    }
+  }
+}
+
 export default {
   data() {
     return {
+      seaRadius: 600,
+      cloudRadius: 800,
+      cloudDistance: 200,
+
+
       THREE: THREE,
       camera: null,
       scene: null,
@@ -63,6 +160,7 @@ export default {
       shadowLight: null,
 
       sea: null,
+      sky: null,
 
       colors: colors
     }
@@ -75,9 +173,14 @@ export default {
         // add lightings
         this.createLights();
 
+
+        // make sea radius relative to the window size for better scaling
+        // on various devices
+        this.seaRadius = (window.innerWidth*2/3);
+        this.cloudRadius = this.seaRadius+this.cloudDistance;
         // create objects like sky and sea
-        this.createSea();
-        this.createSky();
+        this.createSea(this.seaRadius);
+        this.createSky(this.cloudRadius);
 
 
         this.handleResize();
@@ -162,23 +265,26 @@ export default {
     	this.scene.add(this.hemisphereLight);
     	this.scene.add(this.shadowLight);
     },
-    createSea() {
+    createSea(radius) {
       // make a new sea object
-      this.sea = new Sea();
+      this.sea = new Sea(radius);
 
       // sea position
-      this.sea.mesh.position.y = -550;
+      this.sea.mesh.position.y = -radius+50;
 
       // add sea to scene
       this.scene.add(this.sea.mesh);
     },
-    createSky() {
-
+    createSky(cloudRadius) {
+      this.sky = new Sky( cloudRadius );
+    	this.sky.mesh.position.y = -cloudRadius+this.cloudDistance+50;
+    	this.scene.add(this.sky.mesh);
     },
     animate() {
         requestAnimationFrame(this.animate);
-        // rotate the sea about the z axis (remember we rotated it during creation)
+        // the z axix is the axis facing us.
         this.sea.mesh.rotation.z += 0.003;
+        this.sky.mesh.rotation.z += 0.003;
         this.renderer.render(this.scene, this.camera);
     },
     handleResize() {
