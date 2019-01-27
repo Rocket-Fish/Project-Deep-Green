@@ -11,9 +11,12 @@
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem; max-height: 100rem; color: black;"
+            style="max-width: 20rem;color: black;"
             class="mb-2">
-            <p class="card-text">
+            <p class="card-text" style="
+              max-height:30vh;
+              overflow-y: scroll;
+            ">
               {{card['description']}}
             </p>
             <b-button :href="card['link_to']" variant="primary">{{card["link_desc"]}}</b-button>

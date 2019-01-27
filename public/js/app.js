@@ -2231,6 +2231,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -103713,11 +103716,7 @@ var render = function() {
                   "b-card",
                   {
                     staticClass: "mb-2",
-                    staticStyle: {
-                      "max-width": "20rem",
-                      "max-height": "100rem",
-                      color: "black"
-                    },
+                    staticStyle: { "max-width": "20rem", color: "black" },
                     attrs: {
                       title: card["title"],
                       "img-src": card["img_url"],
@@ -103727,13 +103726,23 @@ var render = function() {
                     }
                   },
                   [
-                    _c("p", { staticClass: "card-text" }, [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(card["description"]) +
-                          "\n          "
-                      )
-                    ]),
+                    _c(
+                      "p",
+                      {
+                        staticClass: "card-text",
+                        staticStyle: {
+                          "max-height": "30vh",
+                          "overflow-y": "scroll"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n            " +
+                            _vm._s(card["description"]) +
+                            "\n          "
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
                     _c(
                       "b-button",
