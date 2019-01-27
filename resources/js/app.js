@@ -80,7 +80,7 @@ const router = new VueRouter({
 */
 import App from './views/App'
 // import navbar component
-import NavbarComponent from './components/NavBarComponent'
+import NavbarComponent from './components/NavbarComponent'
 // make this globally available
 Vue.component('navbar-component', NavbarComponent)
 import BGComponent from './components/BGComponent';
