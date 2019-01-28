@@ -103700,68 +103700,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticStyle: { height: "100%", "overflow-y": "auto" } }, [
-    _c(
-      "div",
-      { staticClass: "twenty-top col-lg-12" },
-      [
-        _c(
-          "b-row",
-          _vm._l(_vm.cards, function(card) {
-            return _c(
-              "b-col",
-              { key: card.id, attrs: { lg: "4" } },
-              [
-                _c(
-                  "b-card",
-                  {
-                    staticClass: "mb-2",
-                    staticStyle: { "max-width": "20rem", color: "black" },
-                    attrs: {
-                      title: card["title"],
-                      "img-src": card["img_url"],
-                      "img-alt": "Image",
-                      "img-top": "",
-                      tag: "article"
-                    }
-                  },
-                  [
-                    _c(
-                      "p",
-                      {
-                        staticClass: "card-text",
-                        staticStyle: {
-                          "max-height": "30vh",
-                          "overflow-y": "auto"
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n            " +
-                            _vm._s(card["description"]) +
-                            "\n          "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-button",
-                      { attrs: { href: card["link_to"], variant: "primary" } },
-                      [_vm._v(_vm._s(card["link_desc"]))]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          }),
-          1
-        )
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    {
+      staticClass: "styled-box",
+      staticStyle: { height: "100%", "overflow-y": "auto" }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "twenty-top col-lg-12" },
+        [
+          _c(
+            "b-row",
+            _vm._l(_vm.cards, function(card) {
+              return _c(
+                "b-col",
+                { key: card.id, attrs: { lg: "4" } },
+                [
+                  _c(
+                    "b-card",
+                    {
+                      staticClass: "mb-2",
+                      staticStyle: { "max-width": "20rem", color: "black" },
+                      attrs: {
+                        title: card["title"],
+                        "img-src": card["img_url"],
+                        "img-alt": "Image",
+                        "img-top": "",
+                        tag: "article"
+                      }
+                    },
+                    [
+                      _c(
+                        "p",
+                        {
+                          staticClass: "card-text",
+                          staticStyle: {
+                            "max-height": "30vh",
+                            "overflow-y": "auto"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(card["description"]) +
+                              "\n          "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { href: card["link_to"], variant: "primary" }
+                        },
+                        [_vm._v(_vm._s(card["link_desc"]))]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

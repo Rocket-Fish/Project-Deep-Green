@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%; width100%; overflow-y: auto;">
+  <div class="styled-box" style="height:100%; width100%; overflow-y: auto;">
     <div class="twenty-top col-lg-12" >
       <b-row>
         <b-col lg="4"
