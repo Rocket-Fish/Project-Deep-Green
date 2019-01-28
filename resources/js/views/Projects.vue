@@ -1,8 +1,8 @@
 <template>
-  <div style="height:100%; width100%;">
-    <div class="twenty-top col-lg-8">
+  <div style="height:100%; width100%; overflow-y: auto;">
+    <div class="twenty-top col-lg-12" >
       <b-row>
-        <b-col
+        <b-col lg="4"
           v-for="card in cards"
           :key="card.id">
           <b-card
@@ -15,7 +15,7 @@
             class="mb-2">
             <p class="card-text" style="
               max-height:30vh;
-              overflow-y: scroll;
+              overflow-y: auto;
             ">
               {{card['description']}}
             </p>
