@@ -40,7 +40,7 @@ foreach ($routes as $r){
   }
 }
 
-//setup the route
+//setup the our route exclusion rules for vue js
 Route::get('/{any}', 'PageController@index')->where('any', '^(?!('.$outputText.')).*$');
 
 /* secret routing goes here
@@ -51,7 +51,7 @@ Route::get('/{any}', 'PageController@index')->where('any', '^(?!('.$outputText.'
 $secretRoute = '/' . Config::get('constants.routes.secret');
 $apiRoute = '/' . Config::get('constants.routes.api');
 
-
+/*
 // add prefix to the magic laravel facad
 Route::group(['prefix' => $secretRoute], function () {
   // magic routing by default laravel
@@ -66,3 +66,4 @@ Route::group(['prefix' => $secretRoute], function () {
 Route::group(['prefix' => $apiRoute], function () {
   Route::get('/projects', 'ProjectsApiController@index');
 });
+*/
