@@ -8,6 +8,16 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+const VueResource = require('vue-resource');
+const vueHeadful = require('vue-headful').default;
+const VueRouter = require('vue-router').default;
+const BootstrapVue = require( 'bootstrap-vue');
+//window.VueRouter = require('vue-router');
+
+Vue.component('vue-headful', vueHeadful);
+Vue.use(VueRouter);
+Vue.use(BootstrapVue);
+Vue.use(VueResource);
 
 /**
  * The following block of code may be used to automatically register your
@@ -16,11 +26,66 @@ window.Vue = require('vue');
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+// don't use these becuase they are only good for very very basic global components
+//const files = require.context('./', true, /\.vue$/i)
+//files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// adds example component (which doesn't exist anymore)
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+/*
+* The following section setups and creates the vue routes
+* which im using to create the different pages on the site
+* It is currently hardcoded
+*
+*/
+import Home from './views/Home'
+import About from './views/About'
+import Projects from './views/Projects'
+import NotFound from './views/NotFound'
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About,
+        },
+        {
+            path: '/projects',
+            name: 'projects',
+            component: Projects,
+        },
+        {
+            path:'/404',
+            name: '404',
+            component: NotFound,
+        },
+        {
+            path:'*',
+            redirect: '/404',
+        },
+    ],
+});
+
+/*
+*
+*
+*/
+import App from './views/App'
+// import navbar component
+import NavbarComponent from './components/NavbarComponent'
+// make this globally available
+Vue.component('navbar-component', NavbarComponent)
+import BGComponent from './components/BGComponent';
+Vue.component('bg-component', BGComponent)
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,5 +94,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: {
+       App,
+       NavbarComponent,
+       BGComponent},
+    router,
 });

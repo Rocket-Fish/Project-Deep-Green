@@ -1,0 +1,38 @@
+// Variables
+@import 'variables';
+
+.twenty-top {
+  margin-top:20%;
+}
+
+.styled-box{
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-bottom:10px;
+
+    // set a variable for the font size
+    $h1-size: 2em;
+    $h2-size: 1.5em;
+    $h3-size: 1.3em;
+    $h4-size: 1em;
+    $h5-size: 0.8em;
+    $h6-size: 0.7em;
+
+    @function scaleUp($var) {
+      @return $var*1.9;
+    }
+
+    @media screen and (min-width: 1300px) {
+      h1 {
+        font-size: scaleUp($h1-size);
+      }
+      h4 {
+        font-size: scaleUp($h4-size);
+      }
+      h5 {
+        font-size: scaleUp($h5-size);
+      }
+    }
+    .line {
+      display: inline-block;
+    }
+  }

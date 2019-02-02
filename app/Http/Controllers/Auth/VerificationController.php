@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
+/*
+|--------------------------------------------------------------------------
+| TODO: THIS IS CURRENTLY UNUSED
+|--------------------------------------------------------------------------
+*/
 class VerificationController extends Controller
 {
     /*
@@ -25,7 +30,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo;
 
     /**
      * Create a new controller instance.
@@ -34,6 +39,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
+        $this->redirectTo = '/' . \Config::get('constants.routes.secret');
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');

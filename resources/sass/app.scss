@@ -7,8 +7,19 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+$break-small: 576px;
+$break-large: 1200px;
+
+// This adjustment here is done so that when I resize the window
+// under 500 px resizing of the navbar won't leave a blank space
+// in between the 3d viewport and the navbar
+.non-nav-items {
+  @media screen and (min-width: $break-small) {
+    padding-top: 40px;
+  }
+  @media screen and (min-width: $break-large) {
+    padding-top: 70px;
+  }
 }
