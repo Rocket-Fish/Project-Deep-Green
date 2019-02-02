@@ -31,10 +31,6 @@ const tabs = [
     name: none,
   },
   {
-    name: 'About',
-    route: 'about'
-  },
-  {
     name: 'Projects',
     route: 'projects'
   }

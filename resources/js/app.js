@@ -40,7 +40,6 @@ Vue.use(VueResource);
 *
 */
 import Home from './views/Home'
-import About from './views/About'
 import Projects from './views/Projects'
 import NotFound from './views/NotFound'
 
@@ -51,11 +50,6 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: Home
-        },
-        {
-            path: '/about',
-            name: 'about',
-            component: About,
         },
         {
             path: '/projects',
