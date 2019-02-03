@@ -34,12 +34,12 @@
     },
     methods: {
       create() {
-          window.axios.get('/api/cruds/create').then(({ data }) => {
+          window.axios.get('/cruds/create').then(({ data }) => {
             this.cruds.push(new Crud(data));
           });
       },
       read() {
-          window.axios.get('/api/cruds').then(({ data }) => {
+          window.axios.get('/cruds').then(({ data }) => {
             data.forEach(crud => {
               this.cruds.push(new Crud(crud));
             });
@@ -47,14 +47,14 @@
       },
       update(id, color) {
           this.is_loading = true;
-          window.axios.put(`/api/cruds/${id}`, { color }).then(() => {
+          window.axios.put(`/cruds/${id}`, { color }).then(() => {
             // Once AJAX resolves we can update the Crud with the new color
             this.cruds.find(crud => crud.id === id).color = color;
             this.is_loading = false;
           });
       },
       del(id) {
-          window.axios.delete(`/api/cruds/${id}`).then(() => {
+          window.axios.delete(`/cruds/${id}`).then(() => {
             let index = this.cruds.findIndex(crud => crud.id === id);
             this.cruds.splice(index, 1);
           });

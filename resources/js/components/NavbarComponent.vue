@@ -37,7 +37,19 @@ const tabs = [
   {
     name: 'Curds',
     route: 'curds'
-  }
+  },
+  {
+    name: 'Login',
+    route: 'login'
+  },
+  {
+    name: 'Register',
+    route: 'register'
+  },
+  {
+    name: 'Dash',
+    route: 'dashboard'
+  },
 ]
 
 let currentTab = tabs[0];

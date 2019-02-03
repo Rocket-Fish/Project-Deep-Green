@@ -7,5 +7,6 @@ return [
   'routes' => [
     'secret' => 'secret',
     'api' => 'api',
+    'auth' => 'auth',
   ],
 ];
