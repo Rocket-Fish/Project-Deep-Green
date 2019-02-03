@@ -1,13 +1,13 @@
 <template>
-  <div class="overlay_container">
+  <div class="container overlay_container">
     <div class="col-lg-12" >
       <b-row>
         <b-col lg="4"
-          v-for="card in cards"
-          :key="card.id">
+          v-for="project in projects"
+          :key="project.id">
           <b-card
-            :title="card['title']"
-            :img-src="card['img_url']"
+            :title="project['title']"
+            :img-src="project['img_url']"
             img-alt="Image"
             img-top
             tag="article"
@@ -17,9 +17,9 @@
               max-height:30vh;
               overflow-y: auto;
             ">
-              {{card['description']}}
+              {{project['description']}}
             </p>
-            <b-button :href="card['link_to']" variant="primary">{{card["link_desc"]}}</b-button>
+            <b-button :href="project['link_to']" variant="primary">{{project["link_desc"]}}</b-button>
           </b-card>
         </b-col>
       </b-row>
@@ -31,17 +31,23 @@
 export default {
   data() {
     return  {
-      cards: []
+      projects: []
     }
   },
   methods: {
-    exportData(data) {
-      this.cards = data.body;
-      if(data.body.length<1) {
-        this.error(data);
-      }
-    },
-    error(data) {
+      async read() {
+          this.is_loading = true;
+          window.axios.get('/projects').then(({ data }) => {
+            data.forEach(project => {
+              this.projects.push(project);
+            });
+        }).catch((response) => {
+            this.error();
+        }).then(() => {
+            this.is_loading = false;
+        });
+      },
+    error() {
       this.cards.push({
             "title": "OOPS",
             "img_url": "https://picsum.photos/200/200/?random",
@@ -52,11 +58,8 @@ export default {
     }
   },
   created() {
-    this.$http.get('projects').then(this.exportData, this.error);
+      this.read();
   },
-  http: {
-    root: '/api/',
-  }
 }
 </script>
 <style lang="scss" scoped>

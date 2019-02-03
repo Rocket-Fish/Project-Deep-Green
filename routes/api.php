@@ -33,7 +33,16 @@ Route::group(['prefix' => $authRoute], function () {
     });
 });
 
+/*
+* We use the index like this because we want our index to reply even without Auth
+* but we dont want unauthorized access to our other stuff like creating and changing
+*/
 Route::resource('cruds', 'CurdsController')->only(['index']);
 Route::group(['middleware' => 'jwt.auth'], function(){
     Route::resource('cruds', 'CurdsController')->except(['edit', 'show', 'store', 'index']);
+});
+
+Route::resource('projects', 'ProjectsController')->only(['index']);
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::resource('projects', 'ProjectsController')->except(['edit', 'show', 'store', 'index']);
 });
