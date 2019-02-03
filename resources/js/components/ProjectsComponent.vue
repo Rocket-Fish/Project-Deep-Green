@@ -44,7 +44,7 @@ export default {
     error(data) {
       this.cards.push({
             "title": "OOPS",
-            "img_url": "https://picsum.photos/200/300/?random",
+            "img_url": "https://picsum.photos/200/200/?random",
             "description": "Something went very wrong with the DB, pls send help",
             "link_to": "/",
             "link_desc": "Go Home"

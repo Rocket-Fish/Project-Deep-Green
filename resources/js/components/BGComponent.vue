@@ -357,6 +357,33 @@ export default {
       this.camera.updateProjectionMatrix()
       // *0.99 width because to remove the side scrolling bar
       this.renderer.setSize(window.innerWidth, window.innerHeight)
+    },
+    deconstruct() {
+        // stop animations
+        cancelAnimationFrame(this.requestedAnimationFame);
+        this.requestAnimationFrame = null;
+
+        // set everything to null so javascript garbage collector
+        // could collect the junk so no memory leaks
+
+        this.scene = null;
+        this.camera = null;
+        this.scene = null;
+        this.renderer = null;
+        this.container = null;
+
+        this.fieldOfView = null;
+        this.aspectRatio = null;
+        this.nearPlane = null;
+        this.farPlane = null;
+        this.HEIGHT = null;
+        this.WIDTH = null;
+
+        this.hemisphereLight = null;
+        this.shadowLight = null;
+
+        this.sea = null;
+        this.sky = null;
     }
   },
   mounted() {
@@ -370,31 +397,7 @@ export default {
     window.removeEventListener('resize', this.handleResize)
   },
   beforeDestroy() {
-      // stop animations
-      cancelAnimationFrame(this.requestedAnimationFame);
-      this.requestAnimationFrame = null;
-
-      // set everything to null so javascript garbage collector
-      // could collect the junk so no memory leaks
-
-      this.scene = null;
-      this.camera = null;
-      this.scene = null;
-      this.renderer = null;
-      this.container = null;
-
-      this.fieldOfView = null;
-      this.aspectRatio = null;
-      this.nearPlane = null;
-      this.farPlane = null;
-      this.HEIGHT = null;
-      this.WIDTH = null;
-
-      this.hemisphereLight = null;
-      this.shadowLight = null;
-
-      this.sea = null;
-      this.sky = null;
+      this.deconstruct();
   },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <bg-component :child_component="getComponent()"></bg-component>
+        <projects-component></projects-component>
     </div>
 </template>
 <script>
@@ -8,11 +8,6 @@
     export default {
         components: {
             'projects-component':ProjectsComponent,
-        },
-        methods: {
-            getComponent() {
-                return ProjectsComponent;
-            }
         }
     }
 </script>
