@@ -23,6 +23,11 @@
                     <input type="password" id="password" class="form-control" v-model="password" required>
                     <span class="help-block alert-danger" v-if="error && errors.password">{{ errors.password }}</span>
                 </div>
+                <div class="form-group" v-bind:class="{ 'has-error': error && errors.token }">
+                    <label for="token">Key Registration token</label>
+                    <input type="password" id="token" class="form-control" placeholder="app key" v-model="token" required>
+                    <span class="help-block alert-danger" v-if="error && errors.token">{{ errors.token }}</span>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </b-card>
@@ -35,6 +40,7 @@
                 name: '',
                 email: '',
                 password: '',
+                token: '',
                 error: false,
                 errors: {},
                 success: false,
@@ -42,12 +48,12 @@
         },
         methods: {
             register(){
-                console.log(this.$auth);
                 this.$auth.register({
                     data: {
                         name: this.name,
                         email: this.email,
-                        password: this.password
+                        password: this.password,
+                        token: this.token
                     },
                     success: function () {
                         this.success = true

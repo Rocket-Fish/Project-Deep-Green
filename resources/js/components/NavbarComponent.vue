@@ -47,10 +47,6 @@ const tabs = [
     name: 'Projects',
     route: 'projects'
   },
-  {
-    name: 'Curds',
-    route: 'curds'
-  },
 ]
 
 let currentTab = tabs[0];

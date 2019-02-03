@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="heading">
-      <h1>Cruds</h1>
+      <h1>Testing Auth with Cruds</h1>
+      <h6>note that you cannot modify any of the cruds unless you login</h6>
+    </div>
+    <div class="alert alert-danger" v-if="error">
+        <p>There was an error</p>
+        <p>Error Code: {{errors.response.status}}</p>
     </div>
     <curd-component
       v-for="crud in cruds"
@@ -30,34 +35,59 @@
       return {
         cruds: [],
         is_loading: false,
+        errors: null,
+        error: false,
       }
     },
     methods: {
-      create() {
+      async create() {
+          this.is_loading = true;
           window.axios.get('/cruds/create').then(({ data }) => {
             this.cruds.push(new Crud(data));
-          });
+        }).catch((response) => {
+            this.error = true;
+            this.errors = response;
+        }).then(() => {
+            this.is_loading = false;
+        });
       },
-      read() {
+      async read() {
+          this.is_loading = true;
           window.axios.get('/cruds').then(({ data }) => {
             data.forEach(crud => {
               this.cruds.push(new Crud(crud));
             });
-          });
+        }).catch((response) => {
+            this.error = true;
+            this.errors = response;
+        }).then(() => {
+            this.is_loading = false;
+        });
       },
-      update(id, color) {
+      async update(id, color) {
           this.is_loading = true;
           window.axios.put(`/cruds/${id}`, { color }).then(() => {
             // Once AJAX resolves we can update the Crud with the new color
             this.cruds.find(crud => crud.id === id).color = color;
+            this.error = false;
+        }).catch((response) => {
+            this.error = true;
+            this.errors = response;
+        }).then(() => {
             this.is_loading = false;
-          });
+        });
       },
-      del(id) {
+      async del(id) {
+          this.is_loading = true;
           window.axios.delete(`/cruds/${id}`).then(() => {
             let index = this.cruds.findIndex(crud => crud.id === id);
             this.cruds.splice(index, 1);
-          });
+        }).catch((response) => {
+            this.error = true;
+            this.errors = response;
+        }).then(() => {
+            this.is_loading = false;
+        });
       }
     },
     created() {

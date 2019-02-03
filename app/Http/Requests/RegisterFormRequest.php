@@ -27,6 +27,7 @@ class RegisterFormRequest extends FormRequest
             'name' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|max:10',
+            'token' => array('required','string','regex:/^'. env('APP_SECRET','SecretToken') . '$/'),
         ];
     }
 }
