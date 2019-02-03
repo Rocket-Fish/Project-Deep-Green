@@ -20,19 +20,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 $authRoute = '/' . Config::get('constants.routes.auth');
 
 Route::group(['prefix' => $authRoute], function () {
-    Route::post('/register', 'AuthController@register');
+    Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
 
     Route::group(['middleware' => 'jwt.auth'], function(){
       Route::get('user', 'AuthController@user');
+      Route::post('logout', 'AuthController@logout');
     });
 
     Route::group(['middleware' => 'jwt.refresh'], function(){
       Route::get('refresh', 'AuthController@refresh');
     });
+});
 
-    Route::group(['middleware' => 'jwt.auth'], function(){
-       Route::post('logout', 'AuthController@logout');
-    });
-
+Route::resource('cruds', 'CurdsController')->only(['index']);
+Route::group(['middleware' => 'jwt.auth'], function(){
+    Route::resource('cruds', 'CurdsController')->except(['edit', 'show', 'store', 'index']);
 });

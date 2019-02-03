@@ -49,7 +49,6 @@ Route::get('/{any}', 'PageController@index')->where('any', '^(?!('.$outputText.'
 *
 */
 $secretRoute = '/' . Config::get('constants.routes.secret');
-$apiRoute = '/' . Config::get('constants.routes.api');
 
 /*
 // add prefix to the magic laravel facad
@@ -62,12 +61,3 @@ Route::group(['prefix' => $secretRoute], function () {
   Route::resource('/projects', 'ProjectsController');
 });
 */
-
-// TODO: backend api routing goes here
-Route::group(['prefix' => $apiRoute], function () {
-    // create resources in api called curds, but don't need
-    // edit shor or store
-    Route::resource('/cruds', 'CurdsController', [
-      'except' => ['edit', 'show', 'store']
-    ]);
-});

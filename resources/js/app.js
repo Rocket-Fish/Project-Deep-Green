@@ -67,6 +67,7 @@ const router = new VueRouter({
             path: '/curds',
             name: 'curds',
             component: Curds,
+            
         },
         {
             path: '/login',

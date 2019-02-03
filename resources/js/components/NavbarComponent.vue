@@ -14,6 +14,19 @@
             <b-nav-item :to="{ name: tab.route }" class="nav-link" href="#" @click.native="currentTab = tab" :active="tab === currentTab">{{tab.name}}</b-nav-item>
           </b-navbar-nav>
 
+          <b-navbar-nav class="ml-auto">
+              <b-nav-item-dropdown right>
+              <!-- Using button-content slot -->
+              <template slot="button-content">
+                <em v-if="!$auth.check()">Inconspicuous</em>
+                <em v-if="$auth.check()">{{$auth.user().name}}</em>
+              </template>
+              <b-dropdown-item v-if="!$auth.check()" :to="{name:'login'}">Login</b-dropdown-item>
+              <b-dropdown-item v-if="!$auth.check()":to="{name:'register'}">Register</b-dropdown-item>
+              <b-dropdown-item v-if="$auth.check()":to="{name:'dashboard'}">Dashboard</b-dropdown-item>
+              <b-dropdown-item v-if="$auth.check()" @click.prevent="$auth.logout()">Signout</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
         </b-collapse>
       </div>
     </b-navbar>
@@ -37,18 +50,6 @@ const tabs = [
   {
     name: 'Curds',
     route: 'curds'
-  },
-  {
-    name: 'Login',
-    route: 'login'
-  },
-  {
-    name: 'Register',
-    route: 'register'
-  },
-  {
-    name: 'Dash',
-    route: 'dashboard'
   },
 ]
 
