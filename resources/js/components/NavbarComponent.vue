@@ -33,6 +33,10 @@ const tabs = [
   {
     name: 'Projects',
     route: 'projects'
+  },
+  {
+    name: 'Curds',
+    route: 'curds'
   }
 ]
 

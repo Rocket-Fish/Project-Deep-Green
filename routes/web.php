@@ -61,9 +61,13 @@ Route::group(['prefix' => $secretRoute], function () {
   // secret Projects
   Route::resource('/projects', 'ProjectsController');
 });
-
-// TODO: badkend api routing goes here
-Route::group(['prefix' => $apiRoute], function () {
-  Route::get('/projects', 'ProjectsApiController@index');
-});
 */
+
+// TODO: backend api routing goes here
+Route::group(['prefix' => $apiRoute], function () {
+    // create resources in api called curds, but don't need
+    // edit shor or store
+    Route::resource('/cruds', 'CurdsController', [
+      'except' => ['edit', 'show', 'store']
+    ]);
+});

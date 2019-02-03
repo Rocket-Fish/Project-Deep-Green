@@ -41,6 +41,7 @@ Vue.use(VueResource);
 */
 import Home from './views/Home'
 import Projects from './views/Projects'
+import Curds from './views/Curds'
 import NotFound from './views/NotFound'
 
 const router = new VueRouter({
@@ -55,6 +56,11 @@ const router = new VueRouter({
             path: '/projects',
             name: 'projects',
             component: Projects,
+        },
+        {
+            path: '/curds',
+            name: 'curds',
+            component: Curds,
         },
         {
             path:'/404',
