@@ -1,11 +1,9 @@
 <template>
   <div class="container overlay_container">
-    <div class="col-lg-12" >
-      <b-row>
-        <b-col lg="4"
-          v-for="project in projects"
-          :key="project.id">
+      <b-card-group deck>
           <b-card
+            v-for="project in projects"
+            :key="project.id"
             :title="project['title']"
             :img-src="project['img_url']"
             img-alt="Image"
@@ -19,11 +17,11 @@
             ">
               {{project['description']}}
             </p>
-            <b-button :href="project['link_to']" variant="primary">{{project["link_desc"]}}</b-button>
+            <em slot="footer">
+                <b-button :href="project['link_to']" variant="primary">{{project["link_desc"]}}</b-button>
+            </em>
           </b-card>
-        </b-col>
-      </b-row>
-    </div>
+      </b-card-group deck>
   </div>
 </template>
 
