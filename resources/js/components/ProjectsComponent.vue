@@ -11,15 +11,15 @@
             tag="article"
             style="max-width: 20rem;color: black;"
             class="mb-2">
-            <p class="card-text" style="
-              max-height:30vh;
-              overflow-y: auto;
-            ">
-              {{project['description']}}
-            </p>
-            <em slot="footer">
-                <b-button :href="project['link_to']" variant="primary">{{project["link_desc"]}}</b-button>
-            </em>
+                <p class="card-text" style="
+                  max-height:30vh;
+                  overflow-y: auto;
+                ">
+                  {{project['description']}}
+                </p>
+                <em slot="footer">
+                    <b-button :href="project['link_to']" variant="primary">{{project["link_desc"]}}</b-button>
+                </em>
           </b-card>
       </b-card-group deck>
   </div>

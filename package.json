@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@websanova/vue-auth": "^2.21.14-beta",
+        "animate.css": "^3.7.0",
         "bootstrap-vue": "^2.0.0-rc.11",
         "three": "^0.100.0",
         "velocity-animate": "^1.5.2",

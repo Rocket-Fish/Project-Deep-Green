@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg">
         <projects-component></projects-component>
     </div>
 </template>
@@ -11,3 +11,12 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+$blue: #51D4D4;
+
+.bg {
+    height: 100vh;
+    position:relative;
+	background: linear-gradient(to top right, $blue, #FFF);
+}
+</style>
