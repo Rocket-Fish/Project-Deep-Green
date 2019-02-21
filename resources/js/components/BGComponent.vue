@@ -168,8 +168,6 @@ class Sky{
       let a = stepAngle*i; // this is the final angle of the cloud
       let h = radius + Math.random()*200; // this is the distance between the center of the axis and the cloud itself
 
-      // Trigonometry!!! I hope you remember what you've learned in Math :)
-      // in case you don't:
       // we are simply converting polar coordinates (angle, distance) into Cartesian coordinates (x, y)
       c.mesh.position.y = Math.sin(a)*h;
       c.mesh.position.x = Math.cos(a)*h;
@@ -228,7 +226,6 @@ export default {
   methods: {
     init() {
         // make scene
-
         this.createScene();
         // add lightings
         this.createLights();
@@ -349,7 +346,7 @@ export default {
         // the z axix is the axis facing us.
         this.sea.updateWaves();
         this.sea.mesh.rotation.z += 0.0015;
-        this.sky.mesh.rotation.z += 0.0015;
+        this.sky.mesh.rotation.z += 0.0005;
         this.renderer.render(this.scene, this.camera);
     },
     handleResize() {

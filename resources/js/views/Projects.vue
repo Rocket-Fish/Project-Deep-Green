@@ -1,22 +1,21 @@
 <template>
-    <div class="bg">
-        <projects-component></projects-component>
+    <div>
+        <bubble-component :child_component='getComponent()'></bubble-component>
+
     </div>
 </template>
 <script>
     import ProjectsComponent from '../components/ProjectsComponent';
+    import BubbleBGComponent from '../components/BubbleBGComponent';
     export default {
         components: {
             'projects-component':ProjectsComponent,
+            'bubble-component':BubbleBGComponent,
+        },
+        methods: {
+            getComponent() {
+                return ProjectsComponent;
+            }
         }
     }
 </script>
-<style lang="scss" scoped>
-$blue: #51D4D4;
-
-.bg {
-    height: 100vh;
-    position:relative;
-	background: linear-gradient(to top right, $blue, #FFF);
-}
-</style>
