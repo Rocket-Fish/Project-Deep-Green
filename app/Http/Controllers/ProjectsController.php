@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Carbon\Carbon;
 
 class ProjectsController extends Controller
 {
@@ -47,7 +48,7 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-        //
+        return response(Project::find($id)->jsonSerialize(), Response::HTTP_OK);
     }
 
     /**
@@ -70,7 +71,16 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        $project->updated_at = Carbon::now();
+        $project->title = $request->input('title');
+        $project->img_url = $request->input('img_url');
+        $project->description = $request->input('description');
+        $project->link_to = $request->input('link_to');
+        $project->link_desc = $request->input('link_desc');
+        $project->save();
+        return response("haha", Response::HTTP_OK);
     }
 
     /**

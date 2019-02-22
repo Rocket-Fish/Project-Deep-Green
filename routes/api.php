@@ -42,7 +42,8 @@ Route::group(['middleware' => 'jwt.auth'], function(){
     Route::resource('cruds', 'CurdsController')->except(['edit', 'show', 'store', 'index']);
 });
 
-Route::resource('projects', 'ProjectsController')->only(['index']);
+// expose index and show to non-authed connections
+Route::resource('projects', 'ProjectsController')->only(['index', 'show']);
 Route::group(['middleware' => 'jwt.auth'], function(){
     Route::resource('projects', 'ProjectsController')->except(['edit', 'show', 'store', 'index']);
 });
