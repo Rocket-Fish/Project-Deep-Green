@@ -44,6 +44,7 @@ window.axios.defaults.baseURL = '/api'
 */
 import Home from './views/Home'
 import Projects from './views/Projects'
+import ProjectsEdit from './views/ProjectsEdit'
 import Curds from './views/Curds'
 import NotFound from './views/NotFound'
 import Login from './views/Login'
@@ -64,10 +65,18 @@ const router = new VueRouter({
             component: Projects,
         },
         {
+            path: '/projects/:id',
+            name: 'projects',
+            component: ProjectsEdit,
+            meta: {
+                auth: true
+            }
+        },
+        {
             path: '/curds',
             name: 'curds',
             component: Curds,
-            
+
         },
         {
             path: '/login',

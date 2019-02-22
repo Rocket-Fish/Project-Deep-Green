@@ -19,6 +19,8 @@
                 </p>
                 <em slot="footer">
                     <b-button :href="project['link_to']" variant="primary">{{project["link_desc"]}}</b-button>
+
+                    <b-button v-if="checkLoggedIn()" :to="{path:'projects/' + project['id']}" variant="secondary">Edit: {{project["id"]}}</b-button>
                 </em>
           </b-card>
       </b-card-group deck>
@@ -33,6 +35,9 @@ export default {
     }
   },
   methods: {
+      checkLoggedIn() {
+          return this.$auth.check();
+      },
       async read() {
           this.is_loading = true;
           window.axios.get('/projects').then(({ data }) => {
